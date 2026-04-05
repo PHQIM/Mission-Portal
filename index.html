@@ -811,21 +811,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
   </div>
 </div>
 
-<script type="module">
-/* ═══════════ Firebase Config ═══════════ */
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-import { getFirestore, doc, setDoc, getDoc, onSnapshot, collection, getDocs, deleteDoc, writeBatch } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyASfKd1yTevgVq6XUYnvZbyHApy2Kjq6_I",
-  authDomain: "moim-mission-portal.firebaseapp.com",
-  projectId: "moim-mission-portal",
-  storageBucket: "moim-mission-portal.firebasestorage.app",
-  messagingSenderId: "956450466050",
-  appId: "1:956450466050:web:1436deb827d99182e53a1b"
-};
-const fbApp = initializeApp(firebaseConfig);
-const db = getFirestore(fbApp);
+<script>
 /* ═══════════ 상수 ═══════════ */
 const STAGES=['섭외','친분관리','따기','복음방','센터확답'];
 const SBC=['sb1','sb2','sb3','sb4','sb5'];
@@ -890,7 +876,17 @@ let selId=null;
 let savedSemesters=[]; // 저장된 개강 목록
 let curSemName='';    // 현재 작업 중인 개강 이름
 
-/* ═══════════ Firebase 초기화 완료 (위에서 설정됨) ═══════════ */
+/* ═══════════ Storage 헬퍼 ═══════════ */
+const SK='portal_semesters';
+function loadFromStorage(){
+  try{
+    const raw=localStorage.getItem(SK);
+    if(raw) savedSemesters=JSON.parse(raw);
+  }catch(e){}
+}
+function saveToStorage(){
+  try{ localStorage.setItem(SK,JSON.stringify(savedSemesters)); }catch(e){}
+}
 
 /* ═══════════ View 전환 ═══════════ */
 function gotoView(name, navEl){
@@ -931,14 +927,13 @@ function renderYukda(){
   document.getElementById('semBadge').textContent=curSemName||'새 개강';
   document.getElementById('cur-sem-name-top').textContent=curSemName?`— ${curSemName}`:'';
 }
-function setYD(s,v){yd[s]=v;renderYukda();renderYukdaGoalGrid();saveSettingsToFirebase();}
+function setYD(s,v){yd[s]=v;renderYukda();renderYukdaGoalGrid();}
 
 /* ═══════════ 개강 관리 - 섭외기간 ═══════════ */
 let recruitDates={start:'',end:''};
 function setRecruitDate(type,val){
   recruitDates[type]=val;
   renderRecruitDuration();
-  saveSettingsToFirebase();
 }
 function renderRecruitDuration(){
   const s=document.getElementById('recruit-start');
@@ -1020,7 +1015,7 @@ function renderStageGoalGrid(){
       <div class="yg-goal-row">
         <span class="yg-goal-lbl">목표</span>
         <input class="yg-goal-inp" type="number" min="0" value="${goal}" placeholder="—"
-          onchange="stageGoals['${s}']=this.value;renderStageGoalGrid();saveSettingsToFirebase()">
+          onchange="stageGoals['${s}']=this.value;renderStageGoalGrid()">
         <span class="yg-goal-lbl">명</span>
       </div>
       ${pct!==null?`<div style="margin-top:5px;height:3px;background:var(--bg4);border-radius:2px"><div style="height:3px;width:${pct}%;background:${stageColors[i]};border-radius:2px"></div></div><div class="yg-dday dd-future" style="margin-top:2px">${pct}%</div>`:''}
@@ -1031,11 +1026,9 @@ function setYDandGoal(step,type,val){
   if(type==='date'){yd[step]=val;renderYukda();}
   else{yukdaGoals[step]=val;}
   renderYukdaGoalGrid();
-  saveSettingsToFirebase();
 }
 
 /* ═══════════ 목표 ═══════════ */
-let _goalSaveT=null;
 function refreshGoal(){
   goalTarget=parseInt(document.getElementById('goalInp').value)||1;
   const ach=fruits.filter(f=>f.stage==='센터확답').length;
@@ -1043,9 +1036,6 @@ function refreshGoal(){
   const pct=Math.min(100,Math.round(ach/goalTarget*100));
   document.getElementById('gBar').style.width=pct+'%';
   document.getElementById('gPct').textContent=pct+'%';
-  // 디바운스: 타이핑 멈춘 후 1초 뒤 저장
-  clearTimeout(_goalSaveT);
-  _goalSaveT=setTimeout(()=>saveSettingsToFirebase(), 1000);
 }
 
 /* ═══════════ 통계 ═══════════ */
@@ -1165,7 +1155,6 @@ function changeStage(id,val,sel){
   SBC.forEach(c=>sel.classList.remove(c));
   sel.classList.add(SBC[si]);
   refreshStats();renderTabs();buildDDs();
-  saveFruitsToFirebase();
 }
 function changeAssignee(id,val){
   const f=fruits.find(x=>x.id===id);
@@ -1173,7 +1162,6 @@ function changeAssignee(id,val){
   f.assignee=val==='—'?'':val;
   const m=managers.find(x=>x.name===val);
   f.assigneeDept=m?m.dept:'';
-  saveFruitsToFirebase();
 }
 function doSearch(q){flt.search=q;renderTable();}
 
@@ -1410,7 +1398,6 @@ function saveEditSection(id, key, fields){
   // 저장 버튼 시각 피드백
   const btn=document.querySelector(`#esb-es-${id}-${key} .btn-blue`);
   if(btn){btn.textContent='저장됨';btn.style.color='var(--c2)';setTimeout(()=>{btn.textContent='저장';btn.style.color='';},1500);}
-  saveFruitsToFirebase();
 }
 function closeDetail(){
   document.getElementById('dpan').classList.remove('open');
@@ -1435,7 +1422,6 @@ function saveMeeting(id){
     nextGoal:document.getElementById(`mf-next-${id}`).value||'',
   });
   f.lastContact='오늘';
-  saveFruitsToFirebase();
   openDetail(id);
 }
 
@@ -1460,7 +1446,6 @@ function saveFb(id){
     coreQuestion:document.getElementById(`fb-q-${id}`)?.value?.trim()||'',
   });
   f.lastContact='오늘';
-  saveFruitsToFirebase();
   openDetail(id);
 }
 
@@ -1514,7 +1499,6 @@ function addFruit(){
     }]
   });
   refreshStats();renderTabs();buildDDs();renderTable();
-  saveFruitsToFirebase();
   closeModal();
 }
 
@@ -1556,8 +1540,7 @@ function doSave(){
     savedSemesters.unshift(snapshot);
   }
   curSemName=name;
-  saveToStorage();        // 개강 이력 저장
-  saveSettingsToFirebase(); // curSemName 포함 설정 저장
+  saveToStorage();
   closeSaveModal();
   renderYukda();
   updateSemBadge();
@@ -1671,8 +1654,6 @@ function loadSemester(id){
   refreshStats();
   buildDDs();
   renderTable();
-  saveFruitsToFirebase();
-  saveSettingsToFirebase();
   gotoView('fruits', document.getElementById('nav-sem').previousElementSibling||document.querySelector('.s-item'));
   // 열매목록 nav 활성화
   document.querySelectorAll('.s-item').forEach((it,i)=>{if(i===0) it.classList.add('active'); else it.classList.remove('active');});
@@ -1716,12 +1697,12 @@ function renderCompare(){
 
 /* ═══════════ 로그인 ═══════════ */
 const PORTAL_PW='1428113';
-async function doLogin(){
+function doLogin(){
   const pw=document.getElementById('pwInput').value;
   if(pw===PORTAL_PW){
     document.getElementById('loginScreen').style.display='none';
     document.getElementById('mainApp').style.display='flex';
-    await initPortal();
+    initPortal();
   } else {
     const err=document.getElementById('loginErr');
     err.textContent='비밀번호가 올바르지 않습니다.';
@@ -1757,7 +1738,6 @@ function addManager(){
   const col=MGR_COLORS[managers.length%MGR_COLORS.length];
   managers.push({id:Date.now(),name,dept,color:col});
   document.getElementById('mgr-new-name').value='';
-  saveManagersToFirebase();
   renderManagerPage();
   buildDDs();
 }
@@ -1765,7 +1745,6 @@ function addManager(){
 function deleteManager(id){
   if(!confirm('담당자를 삭제할까요?')) return;
   managers=managers.filter(m=>m.id!==id);
-  saveManagersToFirebase();
   renderManagerPage();
 }
 
@@ -1865,181 +1844,16 @@ function downloadPortal(){
   URL.revokeObjectURL(a.href);
 }
 
-/* ═══════════ Firebase 저장 함수들 ═══════════ */
-
-// 동기화 상태 표시
-function showSyncStatus(msg, color='var(--c2)'){
-  let el=document.getElementById('syncStatus');
-  if(!el){
-    el=document.createElement('div');
-    el.id='syncStatus';
-    el.style.cssText='position:fixed;bottom:16px;right:16px;padding:7px 14px;border-radius:8px;font-size:12px;font-weight:500;z-index:9999;transition:opacity .4s;pointer-events:none;';
-    document.body.appendChild(el);
-  }
-  el.textContent=msg;
-  el.style.background=color==='var(--c2)'?'rgba(46,140,112,.12)':'rgba(192,64,96,.1)';
-  el.style.color=color;
-  el.style.border=`1px solid ${color==='var(--c2)'?'rgba(46,140,112,.25)':'rgba(192,64,96,.25)'}`;
-  el.style.opacity='1';
-  clearTimeout(el._t);
-  el._t=setTimeout(()=>{el.style.opacity='0';},2000);
-}
-
-// 열매 전체 저장
-async function saveFruitsToFirebase(){
-  try{
-    await setDoc(doc(db,'portal','fruits'), {list: fruits});
-    showSyncStatus('✓ 저장됨');
-  }catch(e){ showSyncStatus('저장 실패 — 연결 확인', 'var(--c5)'); console.error(e); }
-}
-
-// 담당자 전체 저장
-async function saveManagersToFirebase(){
-  try{
-    await setDoc(doc(db,'portal','managers'), {list: managers});
-    showSyncStatus('✓ 저장됨');
-  }catch(e){ showSyncStatus('저장 실패', 'var(--c5)'); console.error(e); }
-}
-
-// 설정(육따 날짜, 목표, 현재 개강명 등) 저장
-async function saveSettingsToFirebase(){
-  try{
-    await setDoc(doc(db,'portal','settings'), {
-      yd, yukdaGoals, stageGoals, goalTarget, curSemName, recruitDates
-    });
-  }catch(e){ console.error(e); }
-}
-
-// 개강 이력 전체 저장
-async function saveSemestersToFirebase(){
-  try{
-    await setDoc(doc(db,'portal','semesters'), {list: savedSemesters});
-    showSyncStatus('✓ 개강 저장됨');
-  }catch(e){ showSyncStatus('저장 실패', 'var(--c5)'); console.error(e); }
-}
-
-// localStorage 호환용 래퍼 (기존 코드가 호출하는 함수명 유지)
-function saveToStorage(){ saveSemestersToFirebase(); }
-
-/* ═══════════ Firebase 실시간 리스너 ═══════════ */
-function setupRealtimeListeners(){
-  // 열매 목록 실시간 동기화
-  onSnapshot(doc(db,'portal','fruits'), snap=>{
-    if(snap.exists()){
-      const data=snap.data().list||[];
-      // 색상 객체 복원 (Firestore는 함수 저장 안 됨)
-      fruits=data.map((f,i)=>({
-        ...f,
-        color: f.color||ACOLORS[i%ACOLORS.length]
-      }));
-      refreshStats(); renderTabs(); buildDDs(); renderTable();
-      if(document.getElementById('view-manager').classList.contains('active')) renderManagerPage();
-    }
-  });
-
-  // 담당자 실시간 동기화
-  onSnapshot(doc(db,'portal','managers'), snap=>{
-    if(snap.exists()){
-      const data=snap.data().list||[];
-      managers=data.map((m,i)=>({
-        ...m,
-        color: m.color||MGR_COLORS[i%MGR_COLORS.length]
-      }));
-      if(document.getElementById('view-manager').classList.contains('active')) renderManagerPage();
-    }
-  });
-
-  // 개강 이력 실시간 동기화
-  onSnapshot(doc(db,'portal','semesters'), snap=>{
-    if(snap.exists()){
-      savedSemesters=snap.data().list||[];
-      updateSemBadge();
-      if(document.getElementById('view-semester').classList.contains('active')) renderSemPage();
-    }
-  });
-
-  // 설정 실시간 동기화
-  onSnapshot(doc(db,'portal','settings'), snap=>{
-    if(snap.exists()){
-      const s=snap.data();
-      if(s.yd) yd={...s.yd};
-      if(s.yukdaGoals) yukdaGoals={...s.yukdaGoals};
-      if(s.stageGoals) stageGoals={...s.stageGoals};
-      if(s.goalTarget!=null){ goalTarget=s.goalTarget; const gi=document.getElementById('goalInp'); if(gi) gi.value=goalTarget; }
-      if(s.curSemName!=null) curSemName=s.curSemName;
-      if(s.recruitDates) recruitDates={...s.recruitDates};
-      renderYukda();
-      if(document.getElementById('view-semester').classList.contains('active')){
-        renderYukdaGoalGrid(); renderRecruitDuration();
-      }
-    }
-  });
-}
-
 /* ═══════════ 초기화 ═══════════ */
-async function initPortal(){
-  // 로딩 표시
-  showSyncStatus('Firebase 연결 중...', 'var(--blue)');
-
-  // 초기 데이터 불러오기
-  try{
-    const [fruitsSnap, managersSnap, semSnap, settingsSnap] = await Promise.all([
-      getDoc(doc(db,'portal','fruits')),
-      getDoc(doc(db,'portal','managers')),
-      getDoc(doc(db,'portal','semesters')),
-      getDoc(doc(db,'portal','settings')),
-    ]);
-
-    if(fruitsSnap.exists()){
-      fruits=(fruitsSnap.data().list||[]).map((f,i)=>({...f, color:f.color||ACOLORS[i%ACOLORS.length]}));
-    }
-    if(managersSnap.exists()){
-      managers=(managersSnap.data().list||[]).map((m,i)=>({...m, color:m.color||MGR_COLORS[i%MGR_COLORS.length]}));
-    }
-    if(semSnap.exists()){
-      savedSemesters=semSnap.data().list||[];
-    }
-    if(settingsSnap.exists()){
-      const s=settingsSnap.data();
-      if(s.yd) yd={...s.yd};
-      if(s.yukdaGoals) yukdaGoals={...s.yukdaGoals};
-      if(s.stageGoals) stageGoals={...s.stageGoals};
-      if(s.goalTarget!=null){ goalTarget=s.goalTarget; }
-      if(s.curSemName!=null) curSemName=s.curSemName;
-      if(s.recruitDates) recruitDates={...s.recruitDates};
-    }
-    showSyncStatus('✓ 연결됨');
-  }catch(e){
-    showSyncStatus('오프라인 — 연결을 확인해주세요', 'var(--c5)');
-    console.error('Firebase 초기 로드 실패:', e);
-  }
-
+function initPortal(){
+  loadFromStorage();
   updateSemBadge();
   renderYukda();
   renderTabs();
   refreshStats();
   buildDDs();
   renderTable();
-
-  // 실시간 리스너 시작
-  setupRealtimeListeners();
 }
-
-/* ═══════════ 전역 함수 노출 (type=module 필수) ═══════════ */
-Object.assign(window,{
-  gotoView, doLogin, openModal, closeModal, addFruit,
-  openSaveModal, closeSaveModal, doSave,
-  openDetail, closeDetail, openDetailFromMgr,
-  saveEditSection, toggleEditSec, toggleLogSec,
-  saveMeeting, toggleMeeting, saveFb,
-  setStage, setYD, setYDandGoal, setRecruitDate,
-  refreshGoal, doSearch, openDD,
-  picNat, picStage, picMgr, closeAllDD,
-  changeStage, changeAssignee,
-  addManager, deleteManager, toggleMgrCard,
-  toggleCurSem, renderCompare, loadSemester, deleteSemester,
-  downloadPortal,
-});
 </script>
 </body>
 </html>
