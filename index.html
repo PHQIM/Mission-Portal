@@ -170,10 +170,38 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .dept-name-inp{flex:1;background:var(--bg2);border:1px solid var(--border);border-radius:7px;padding:7px 10px;color:var(--text);font-family:inherit;font-size:13px;outline:none;}
 .dept-name-inp:focus{border-color:var(--blue);}
 
+/* 인라인 편집 섹션 */
+.edit-section{padding:0 20px 14px;}
+.edit-section-head{display:flex;align-items:center;gap:8px;padding:10px 20px;cursor:pointer;border-top:1px solid var(--border);transition:background .1s;}
+.edit-section-head:hover{background:var(--bg2);}
+.edit-section-title{font-size:12.5px;font-weight:500;flex:1;color:var(--text);}
+.edit-section-arr{font-size:10.5px;color:var(--text3);transition:transform .18s;}
+.edit-section-arr.open{transform:rotate(90deg);}
+.edit-section-body{display:none;}
+.edit-section-body.open{display:block;}
+.edit-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding-top:10px;}
+.edit-field{display:flex;flex-direction:column;gap:3px;}
+.edit-field.full{grid-column:1/-1;}
+.edit-lbl{font-size:10px;color:var(--text3);letter-spacing:.04em;text-transform:uppercase;}
+.edit-inp,.edit-ta{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:6px 9px;color:var(--text);font-family:inherit;font-size:12.5px;outline:none;width:100%;}
+.edit-inp:focus,.edit-ta:focus{border-color:var(--blue);}
+.edit-ta{resize:none;line-height:1.5;}
+.edit-save-btn{display:flex;justify-content:flex-end;padding-top:10px;}
+
+/* 만남/피드백 토글 섹션 헤더 */
+.log-toggle-head{display:flex;align-items:center;gap:8px;padding:12px 20px;cursor:pointer;border-top:1px solid var(--border);background:var(--bg2);transition:background .1s;}
+.log-toggle-head:hover{background:var(--bg3);}
+.log-toggle-title{font-size:12.5px;font-weight:500;flex:1;color:var(--text);}
+.log-toggle-badge{font-size:10.5px;color:var(--text3);background:var(--bg4);padding:2px 7px;border-radius:10px;}
+.log-toggle-arr{font-size:10.5px;color:var(--text3);transition:transform .18s;}
+.log-toggle-arr.open{transform:rotate(90deg);}
+.log-toggle-body{display:none;}
+.log-toggle-body.open{display:block;}
+
 /* ── Table ── */
 .tw{background:var(--bg);border:1px solid var(--border);border-radius:var(--rl);overflow:visible;}
-.th{display:grid;grid-template-columns:24px 1fr 56px 100px 118px 130px 88px 52px;padding:8px 13px;border-bottom:1px solid var(--border);font-size:10px;color:var(--text3);letter-spacing:.05em;text-transform:uppercase;align-items:center;gap:0;}
-.tr{display:grid;grid-template-columns:24px 1fr 56px 100px 118px 130px 88px 52px;padding:10px 13px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s;align-items:center;gap:0;}
+.th{display:grid;grid-template-columns:24px 1fr 56px 90px 118px 120px 110px 80px 52px;padding:8px 13px;border-bottom:1px solid var(--border);font-size:10px;color:var(--text3);letter-spacing:.05em;text-transform:uppercase;align-items:center;gap:0;}
+.tr{display:grid;grid-template-columns:24px 1fr 56px 90px 118px 120px 110px 80px 52px;padding:10px 13px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s;align-items:center;gap:0;}
 .tr:last-child{border-bottom:none;}
 .tr:hover{background:var(--bg2);}
 .tr.sel{background:var(--pink-dim);}
@@ -334,7 +362,56 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .cmp-val.up{color:var(--c2);}
 .cmp-val.dn{color:var(--c5);}
 
-::-webkit-scrollbar{width:5px;}
+/* ── 담당자 관리 페이지 ── */
+.mgr-page-content{flex:1;overflow-y:auto;padding:24px;}
+.mgr-add-bar{display:flex;gap:10px;align-items:center;margin-bottom:24px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;flex-wrap:wrap;}
+.mgr-add-bar input,.mgr-add-bar select{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:7px 10px;font-family:inherit;font-size:13px;color:var(--text);outline:none;}
+.mgr-add-bar input:focus,.mgr-add-bar select:focus{border-color:var(--blue);}
+.mgr-add-bar input{flex:1;min-width:120px;}
+.mgr-list{display:flex;flex-direction:column;gap:10px;}
+.mgr-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;}
+.mgr-card-head{display:flex;align-items:center;gap:12px;padding:14px 18px;cursor:pointer;transition:background .1s;}
+.mgr-card-head:hover{background:var(--bg2);}
+.mgr-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0;}
+.mgr-card-name{font-size:14px;font-weight:500;flex:1;}
+.mgr-card-dept{font-size:11.5px;color:var(--text3);background:var(--bg3);padding:2px 8px;border-radius:10px;}
+.mgr-card-cnt{font-size:12px;color:var(--text2);}
+.mgr-card-arr{font-size:11px;color:var(--text3);transition:transform .18s;}
+.mgr-card-arr.open{transform:rotate(90deg);}
+.mgr-card-del{background:none;border:none;color:var(--text3);cursor:pointer;font-size:13px;padding:3px 8px;border-radius:5px;transition:all .1s;}
+.mgr-card-del:hover{background:var(--c5d);color:var(--c5);}
+.mgr-card-body{display:none;border-top:1px solid var(--border);padding:12px 18px;}
+.mgr-card-body.open{display:block;}
+.mgr-fruit-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);}
+.mgr-fruit-row:last-child{border-bottom:none;}
+.mgr-fruit-av{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;flex-shrink:0;}
+.mgr-fruit-name{font-size:13px;flex:1;}
+.mgr-fruit-stage{font-size:11px;}
+.mgr-fruit-link{font-size:11.5px;color:var(--blue);cursor:pointer;background:none;border:none;font-family:inherit;padding:2px 6px;border-radius:4px;}
+.mgr-fruit-link:hover{background:var(--blue-dim);}
+.mgr-empty-fruits{font-size:12.5px;color:var(--text3);padding:8px 0;text-align:center;}
+
+/* 개강 관리 - 단계별 목표 */
+.yukda-goal-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:16px;}
+.yg-cell{background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:10px 10px 8px;}
+.yg-name{font-size:10.5px;font-weight:500;color:var(--text2);margin-bottom:6px;}
+.yg-date{font-size:11px;border:1px solid var(--border);border-radius:5px;padding:4px 6px;color:var(--text);background:var(--bg2);font-family:inherit;width:100%;outline:none;margin-bottom:6px;}
+.yg-date:focus{border-color:var(--blue);}
+.yg-goal-row{display:flex;align-items:center;gap:5px;}
+.yg-goal-lbl{font-size:10px;color:var(--text3);white-space:nowrap;}
+.yg-goal-inp{width:46px;padding:3px 5px;border:1px solid var(--border);border-radius:5px;font-family:inherit;font-size:12px;font-weight:500;color:var(--text);background:var(--bg);text-align:center;outline:none;}
+.yg-goal-inp:focus{border-color:var(--pink);}
+.yg-dday{font-size:9.5px;margin-top:4px;font-weight:500;}
+
+/* 인라인 단계 드롭다운 */
+.inline-stage-sel{appearance:none;-webkit-appearance:none;border:none;cursor:pointer;font-weight:500;font-size:11.5px;border-radius:20px;padding:3px 22px 3px 8px;font-family:inherit;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5' viewBox='0 0 8 5'%3E%3Cpath fill='%23888' d='M0 0l4 5 4-5z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 6px center;}
+.inline-stage-sel.sb1{background-color:var(--c1d);color:var(--c1);}
+.inline-stage-sel.sb2{background-color:var(--c2d);color:var(--c2);}
+.inline-stage-sel.sb3{background-color:var(--c3d);color:var(--c3);}
+.inline-stage-sel.sb4{background-color:var(--c4d);color:var(--c4);}
+.inline-stage-sel.sb5{background-color:var(--c5d);color:var(--c5);}
+
+
 ::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:3px;}
 
@@ -415,16 +492,12 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
     </div>
     <nav class="s-nav">
       <div class="s-lbl">메인</div>
-      <div class="s-item active" onclick="gotoView('fruits',this)"><span class="s-dot"></span>열매 목록<span class="s-badge" id="sb-tot">1</span></div>
-      <div class="s-item" onclick="gotoView('fruits',this)"><span class="s-dot"></span>대시보드</div>
+      <div class="s-item active" id="nav-fruits" onclick="gotoView('fruits',this)"><span class="s-dot"></span>열매 목록<span class="s-badge" id="sb-tot">1</span></div>
       <div class="s-lbl">관리</div>
-      <div class="s-item" onclick="gotoView('fruits',this)"><span class="s-dot"></span>최근 활동</div>
-      <div class="s-item" onclick="gotoView('fruits',this)"><span class="s-dot"></span>피드백 모음</div>
       <div class="s-item" id="nav-sem" onclick="gotoView('semester',this)"><span class="s-dot"></span>개강 관리<span class="s-badge" id="sem-cnt-badge">0</span></div>
-      <div class="s-item" onclick="gotoView('fruits',this)"><span class="s-dot"></span>담당자 관리</div>
-      <div class="s-lbl">설정</div>
-      <div class="s-item" onclick="gotoView('fruits',this)"><span class="s-dot"></span>계정·권한</div>
-      <div class="s-item" onclick="gotoView('fruits',this)"><span class="s-dot"></span>데이터 내보내기</div>
+      <div class="s-item" id="nav-mgr" onclick="gotoView('manager',this)"><span class="s-dot"></span>담당자 관리</div>
+      <div class="s-lbl">기타</div>
+      <div class="s-item" id="nav-dl" onclick="downloadPortal()"><span class="s-dot"></span>페이지 다운로드</div>
     </nav>
     <div class="s-user">
       <div class="s-avatar">김</div>
@@ -478,7 +551,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
           <div class="cdd" id="hNat" onclick="openDD(event,'hNat')">국적<span class="cdd-arrow">▾</span><div class="cdd-menu" id="ddNat"></div></div>
           <div class="cdd" id="hStage" onclick="openDD(event,'hStage')">진행단계<span class="cdd-arrow">▾</span><div class="cdd-menu" id="ddStage"></div></div>
           <div class="cdd" id="hMgr" onclick="openDD(event,'hMgr')">인도자/관리자<span class="cdd-arrow">▾</span><div class="cdd-menu" id="ddMgr"></div></div>
-          <div>최근 접촉</div><div></div>
+          <div>담당자</div><div>최근 접촉</div><div></div>
         </div>
         <div id="tbody"></div>
       </div>
@@ -488,36 +561,88 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
   <!-- ── VIEW: 개강 관리 ── -->
   <div class="view" id="view-semester" style="flex:1;">
     <div class="sem-page-topbar">
-      <div class="tb-title" style="flex:1">개강 관리 <span>저장된 개강별 데이터</span></div>
-      <button class="btn btn-blue" onclick="gotoView('fruits', document.querySelector('.s-item'))">열매 목록으로</button>
+      <div class="tb-title" style="flex:1">개강 관리 <span>육따 일정 · 단계별 목표 · 개강 이력</span></div>
+      <button class="btn btn-blue" onclick="gotoView('fruits',document.getElementById('nav-fruits'))">열매 목록으로</button>
       <button class="btn btn-p" onclick="openSaveModal()">+ 현재 개강 저장</button>
     </div>
     <div class="sem-content">
 
-      <!-- 현재 진행 중 -->
-      <div class="sem-section-title">현재 진행 중 <span id="cur-sem-title-label"></span></div>
-      <div class="cur-sem-card" id="curSemCard"></div>
-
-      <!-- 구분선 -->
-      <div style="border-top:1px solid var(--border);margin:24px 0;"></div>
+      <!-- 현재 진행 중 토글 -->
+      <div style="border:1.5px solid var(--blue);border-radius:var(--rl);overflow:hidden;margin-bottom:24px;">
+        <div class="tgh" style="background:var(--bg);padding:14px 18px;" onclick="toggleCurSem()">
+          <div style="flex:1">
+            <span class="csc-badge" style="margin-right:10px">현재 진행 중</span>
+            <span id="cur-sem-title-label" style="font-size:15px;font-weight:600;font-family:'DM Serif Display',serif;color:var(--text)"></span>
+          </div>
+          <span id="cur-sem-toggle-arr" class="tga" style="font-size:11px;color:var(--text3)">▶</span>
+        </div>
+        <div id="curSemBody" style="display:none;border-top:1px solid var(--border);">
+          <!-- 섭외기간 날짜 설정 -->
+          <div style="padding:14px 20px 0;border-bottom:1px solid var(--border);">
+            <div style="font-size:10.5px;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px;font-weight:500">섭외기간 설정</div>
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px">
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span style="font-size:11.5px;color:var(--text2)">시작</span>
+                <input type="date" id="recruit-start" value="" onchange="setRecruitDate('start',this.value)"
+                  style="font-size:12px;border:1px solid var(--border);border-radius:6px;padding:4px 8px;font-family:inherit;background:var(--bg2);color:var(--text);outline:none;">
+              </div>
+              <span style="color:var(--text3);font-size:13px">—</span>
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span style="font-size:11.5px;color:var(--text2)">종료</span>
+                <input type="date" id="recruit-end" value="" onchange="setRecruitDate('end',this.value)"
+                  style="font-size:12px;border:1px solid var(--border);border-radius:6px;padding:4px 8px;font-family:inherit;background:var(--bg2);color:var(--text);outline:none;">
+              </div>
+              <span id="recruit-duration-label" style="font-size:11.5px;color:var(--text3)"></span>
+            </div>
+          </div>
+          <!-- 진행단계별 현황 · 목표 -->
+          <div style="padding:14px 20px 0;">
+            <div style="font-size:10.5px;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px;font-weight:500">진행단계별 현황 · 목표</div>
+            <div id="stageGoalGrid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px;"></div>
+          </div>
+          <!-- 육따 일정 전체 -->
+          <div style="padding:0 20px 14px;">
+            <div style="font-size:10.5px;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px;font-weight:500">육따 일정 · 단계별 목표 인원</div>
+            <div id="yukdaGoalGrid" style="display:grid;grid-template-columns:repeat(6,1fr);gap:8px;"></div>
+          </div>
+          <!-- 단계 통계 요약 -->
+          <div style="padding:0 20px 20px;">
+            <div class="cur-sem-card" id="curSemCard" style="margin-bottom:0"></div>
+          </div>
+        </div>
+      </div>
 
       <!-- 저장된 개강 이력 -->
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
         <div class="sem-section-title" style="margin-bottom:0">저장된 개강 이력 <span id="sem-hist-count"></span></div>
         <div style="display:flex;gap:8px;align-items:center;">
-          <span style="font-size:11.5px;color:var(--text3)">비교 보기</span>
-          <select class="fs" style="width:160px;font-size:12px;padding:4px 8px;" id="cmpSel1" onchange="renderCompare()">
-            <option value="">개강 선택</option>
-          </select>
+          <span style="font-size:11.5px;color:var(--text3)">비교</span>
+          <select class="fs" style="width:150px;font-size:12px;padding:4px 8px;" id="cmpSel1" onchange="renderCompare()"><option value="">개강 선택</option></select>
           <span style="font-size:11.5px;color:var(--text3)">vs</span>
-          <select class="fs" style="width:160px;font-size:12px;padding:4px 8px;" id="cmpSel2" onchange="renderCompare()">
-            <option value="">개강 선택</option>
-          </select>
+          <select class="fs" style="width:150px;font-size:12px;padding:4px 8px;" id="cmpSel2" onchange="renderCompare()"><option value="">개강 선택</option></select>
         </div>
       </div>
-
       <div class="sem-list" id="semList"></div>
       <div id="compareSection"></div>
+    </div>
+  </div>
+
+  <!-- ── VIEW: 담당자 관리 ── -->
+  <div class="view" id="view-manager" style="flex:1;">
+    <div class="sem-page-topbar">
+      <div class="tb-title" style="flex:1">담당자 관리 <span>담당자별 열매 현황</span></div>
+      <button class="btn btn-blue" onclick="gotoView('fruits',document.getElementById('nav-fruits'))">열매 목록으로</button>
+    </div>
+    <div class="mgr-page-content">
+      <!-- 담당자 추가 -->
+      <div class="mgr-add-bar">
+        <select id="mgr-new-dept" style="width:100px;">
+          <option>교역자</option><option>자문회</option><option>장년회</option><option>부녀회</option><option>청년회</option>
+        </select>
+        <input id="mgr-new-name" type="text" placeholder="담당자 이름 입력">
+        <button class="btn btn-p" onclick="addManager()">+ 담당자 추가</button>
+      </div>
+      <div class="mgr-list" id="mgrList"></div>
     </div>
   </div>
 
@@ -529,7 +654,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 
 <!-- ── 열매 등록 Modal ── -->
 <div class="mov" id="addMov">
-  <div class="modal" style="width:540px;">
+  <div class="modal" style="width:700px;max-width:96vw;">
     <div class="mttl">새 열매 등록
       <button onclick="closeModal()" style="background:none;border:none;color:var(--text3);cursor:pointer;font-size:17px;line-height:1;">✕</button>
     </div>
@@ -540,30 +665,8 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
       <div class="fg"><label class="fl">생년월일</label><input class="fi" id="mf-bday" type="date"></div>
     </div>
     <div class="fr">
-      <div class="fg"><label class="fl">국적 *</label>
-        <select class="fs" id="mf-nat">
-          <optgroup label="아시아">
-            <option>중국</option><option>베트남</option><option>필리핀</option>
-            <option>인도네시아</option><option>태국</option><option>캄보디아</option>
-            <option>미얀마</option><option>몽골</option><option>인도</option>
-            <option>방글라데시</option><option>스리랑카</option><option>네팔</option>
-            <option>파키스탄</option><option>일본</option>
-          </optgroup>
-          <optgroup label="중앙아시아 / 중동">
-            <option>우즈베키스탄</option><option>카자흐스탄</option>
-            <option>키르기스스탄</option><option>타지키스탄</option>
-            <option>이란</option><option>터키</option>
-          </optgroup>
-          <optgroup label="아프리카">
-            <option>나이지리아</option><option>가나</option><option>에티오피아</option>
-            <option>케냐</option><option>탄자니아</option>
-          </optgroup>
-          <optgroup label="아메리카 / 유럽 / 기타">
-            <option>미국</option><option>캐나다</option><option>브라질</option>
-            <option>멕시코</option><option>러시아</option><option>우크라이나</option>
-            <option>기타</option>
-          </optgroup>
-        </select>
+      <div class="fg"><label class="fl">국적 * (직접 입력)</label>
+        <input class="fi" id="mf-nat" type="text" placeholder="예: 중국, 베트남, 우즈베키스탄...">
       </div>
       <div class="fg"><label class="fl">거주유형</label>
         <select class="fs" id="mf-type"><option>유학생</option><option>외국인근로자</option><option>재외동포</option><option>다문화가정</option></select>
@@ -571,19 +674,50 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
     </div>
     <div class="fr">
       <div class="fg"><label class="fl">비자유형</label>
-        <select class="fs" id="mf-visa"><option>D-2</option><option>E-9</option><option>F-4</option><option>F-6</option><option>H-2</option><option>기타</option></select>
+        <select class="fs" id="mf-visa">
+          <optgroup label="유학">
+            <option value="D-2 유학">D-2 유학</option>
+            <option value="D-4 일반연수">D-4 일반연수</option>
+          </optgroup>
+          <optgroup label="취업">
+            <option value="E-1 교수">E-1 교수</option>
+            <option value="E-2 회화지도">E-2 회화지도</option>
+            <option value="E-3 연구">E-3 연구</option>
+            <option value="E-4 기술지도">E-4 기술지도</option>
+            <option value="E-5 전문직업">E-5 전문직업</option>
+            <option value="E-6 예술흥행">E-6 예술흥행</option>
+            <option value="E-7 특정활동">E-7 특정활동</option>
+            <option value="E-9 비전문취업">E-9 비전문취업</option>
+            <option value="E-10 선원취업">E-10 선원취업</option>
+          </optgroup>
+          <optgroup label="방문·거주">
+            <option value="F-1 방문동거">F-1 방문동거</option>
+            <option value="F-2 거주">F-2 거주</option>
+            <option value="F-3 동반">F-3 동반</option>
+            <option value="F-4 재외동포">F-4 재외동포</option>
+            <option value="F-5 영주">F-5 영주</option>
+            <option value="F-6 결혼이민">F-6 결혼이민</option>
+          </optgroup>
+          <optgroup label="방문취업·기타">
+            <option value="H-2 방문취업">H-2 방문취업</option>
+            <option value="C-3 단기방문">C-3 단기방문</option>
+            <option value="G-1 기타">G-1 기타</option>
+            <option value="기타">기타</option>
+          </optgroup>
+        </select>
       </div>
       <div class="fg"><label class="fl">진행단계</label>
         <select class="fs" id="mf-stage"><option>섭외</option><option>친분관리</option><option>따기</option><option>복음방</option><option>센터확답</option></select>
       </div>
     </div>
 
-    <div class="modal-section-lbl">담당자</div>
+    <div class="modal-section-lbl">전도 담당 (수기 입력)</div>
     <div class="fr">
       <div class="fg">
         <label class="fl">인도자 *</label>
         <div class="dept-name-group">
           <select class="dept-sel" id="mf-guide-dept">
+            <option value="교역자">교역자</option>
             <option value="자문회">자문회</option>
             <option value="장년회">장년회</option>
             <option value="부녀회">부녀회</option>
@@ -596,6 +730,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
         <label class="fl">관리자 *</label>
         <div class="dept-name-group">
           <select class="dept-sel" id="mf-manager-dept">
+            <option value="교역자">교역자</option>
             <option value="자문회">자문회</option>
             <option value="장년회">장년회</option>
             <option value="부녀회">부녀회</option>
@@ -610,6 +745,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
         <label class="fl">복음방 교사</label>
         <div class="dept-name-group">
           <select class="dept-sel" id="mf-teacher-dept">
+            <option value="교역자">교역자</option>
             <option value="자문회">자문회</option>
             <option value="장년회">장년회</option>
             <option value="부녀회">부녀회</option>
@@ -620,8 +756,24 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
       </div>
       <div class="fg">
         <label class="fl">거주 예정 기간</label>
-        <select class="fs" id="mf-duration"><option>6개월</option><option>1년</option><option>2년</option><option>3년</option><option>장기</option></select>
+        <select class="fs" id="mf-duration">
+          <option>3개월 이하</option>
+          <option>6개월 이하</option>
+          <option>6개월</option>
+          <option>1년</option>
+          <option>2년</option>
+          <option>3년</option>
+          <option>장기</option>
+        </select>
       </div>
+    </div>
+
+    <div class="modal-section-lbl">관리 담당자 (담당자 관리에서 등록된 인원)</div>
+    <div class="fg">
+      <label class="fl">담당자</label>
+      <select class="fs" id="mf-assignee">
+        <option value="">— 선택 안 함 —</option>
+      </select>
     </div>
 
     <div class="modal-section-lbl">추가 정보</div>
@@ -659,12 +811,25 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
   </div>
 </div>
 
-<script>
+<script type="module">
+/* ═══════════ Firebase Config ═══════════ */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+import { getFirestore, doc, setDoc, getDoc, onSnapshot, collection, getDocs, deleteDoc, writeBatch } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyASfKd1yTevgVq6XUYnvZbyHApy2Kjq6_I",
+  authDomain: "moim-mission-portal.firebaseapp.com",
+  projectId: "moim-mission-portal",
+  storageBucket: "moim-mission-portal.firebasestorage.app",
+  messagingSenderId: "956450466050",
+  appId: "1:956450466050:web:1436deb827d99182e53a1b"
+};
+const fbApp = initializeApp(firebaseConfig);
+const db = getFirestore(fbApp);
 /* ═══════════ 상수 ═══════════ */
 const STAGES=['섭외','친분관리','따기','복음방','센터확답'];
 const SBC=['sb1','sb2','sb3','sb4','sb5'];
 const MANAGERS=['박인도','이열매','최은혜','정신실'];
-const YUKDA=['섭외기간','교사연결','육따','영따','마팔마감','개강'];
 const ACOLORS=[
   {bg:'rgba(65,112,184,.12)',c:'#4170b8'},
   {bg:'rgba(46,140,112,.12)',c:'#2e8c70'},
@@ -681,6 +846,7 @@ let fruits=[{
   manager:'이열매',managerDept:'부녀회',
   guide:'박인도',guideDept:'자문회',
   teacher:'강복음',teacherDept:'청년회',
+  assignee:'',assigneeDept:'',
   lastContact:'3일 전',color:ACOLORS[0],
   tendency:'내향적',hobby:'독서',vision:'귀국 후 교육 분야',
   faith:'무관심',faithYears:'없음',church:'없음',prayer:'학업·취업',
@@ -724,17 +890,7 @@ let selId=null;
 let savedSemesters=[]; // 저장된 개강 목록
 let curSemName='';    // 현재 작업 중인 개강 이름
 
-/* ═══════════ Storage 헬퍼 ═══════════ */
-const SK='portal_semesters';
-function loadFromStorage(){
-  try{
-    const raw=localStorage.getItem(SK);
-    if(raw) savedSemesters=JSON.parse(raw);
-  }catch(e){}
-}
-function saveToStorage(){
-  try{ localStorage.setItem(SK,JSON.stringify(savedSemesters)); }catch(e){}
-}
+/* ═══════════ Firebase 초기화 완료 (위에서 설정됨) ═══════════ */
 
 /* ═══════════ View 전환 ═══════════ */
 function gotoView(name, navEl){
@@ -742,10 +898,14 @@ function gotoView(name, navEl){
   document.getElementById('view-'+name).classList.add('active');
   document.querySelectorAll('.s-item').forEach(i=>i.classList.remove('active'));
   if(navEl) navEl.classList.add('active');
-  if(name==='semester') renderSemPage();
+  if(name==='semester'){renderSemPage();}
+  if(name==='manager'){renderManagerPage();}
 }
 
-/* ═══════════ 육따 타임라인 ═══════════ */
+const YUKDA=['섭외기간','교사연결','육따','영따','선개강','개강'];
+let yukdaGoals={};  // 각 단계별 목표 인원
+
+/* ═══════════ 육따 타임라인 (열매 목록 상단) ═══════════ */
 function renderYukda(){
   const today=new Date(); today.setHours(0,0,0,0);
   document.getElementById('ytLine').innerHTML=YUKDA.map(s=>{
@@ -771,9 +931,111 @@ function renderYukda(){
   document.getElementById('semBadge').textContent=curSemName||'새 개강';
   document.getElementById('cur-sem-name-top').textContent=curSemName?`— ${curSemName}`:'';
 }
-function setYD(s,v){yd[s]=v;renderYukda();}
+function setYD(s,v){yd[s]=v;renderYukda();renderYukdaGoalGrid();saveSettingsToFirebase();}
+
+/* ═══════════ 개강 관리 - 섭외기간 ═══════════ */
+let recruitDates={start:'',end:''};
+function setRecruitDate(type,val){
+  recruitDates[type]=val;
+  renderRecruitDuration();
+  saveSettingsToFirebase();
+}
+function renderRecruitDuration(){
+  const s=document.getElementById('recruit-start');
+  const e=document.getElementById('recruit-end');
+  const lbl=document.getElementById('recruit-duration-label');
+  if(s) s.value=recruitDates.start||'';
+  if(e) e.value=recruitDates.end||'';
+  if(lbl){
+    if(recruitDates.start&&recruitDates.end){
+      const d1=new Date(recruitDates.start);const d2=new Date(recruitDates.end);
+      const days=Math.round((d2-d1)/86400000);
+      lbl.textContent=days>=0?`총 ${days}일`:'날짜를 확인하세요';
+      lbl.style.color=days>=0?'var(--c2)':'var(--c5)';
+    } else { lbl.textContent=''; }
+  }
+}
+
+/* ═══════════ 개강 토글 ═══════════ */
+function toggleCurSem(){
+  const body=document.getElementById('curSemBody');
+  const arr=document.getElementById('cur-sem-toggle-arr');
+  if(!body) return;
+  const open=body.style.display!=='none';
+  body.style.display=open?'none':'block';
+  if(arr) arr.classList.toggle('open',!open);
+}
+
+/* ═══════════ 개강 관리 - 육따 목표 그리드 ═══════════ */
+let stageGoals={};  // 단계별 목표 인원
+
+function renderYukdaGoalGrid(){
+  const el=document.getElementById('yukdaGoalGrid');
+  if(!el) return;
+  const today=new Date(); today.setHours(0,0,0,0);
+
+  // 육따 일정 셀 (섭외기간 제외 - 별도 UI에 있음)
+  const yukdaHtml=YUKDA.map(s=>{
+    const v=yd[s]||'';
+    const g=yukdaGoals[s]||'';
+    let ddHtml='';
+    if(v){
+      const d=new Date(v); d.setHours(0,0,0,0);
+      const df=Math.round((d-today)/86400000);
+      let cls,tx;
+      if(df<0){cls='dd-past';tx='D+'+Math.abs(df);}
+      else if(df===0){cls='dd-urgent';tx='D-Day';}
+      else if(df<=7){cls='dd-urgent';tx='D-'+df;}
+      else if(df<=14){cls='dd-soon';tx='D-'+df;}
+      else{cls='dd-future';tx='D-'+df;}
+      ddHtml=`<div class="yg-dday ${cls}">${tx}</div>`;
+    }
+    return `<div class="yg-cell">
+      <div class="yg-name">${s}</div>
+      <input class="yg-date" type="date" value="${v}" onchange="setYDandGoal('${s}','date',this.value)" title="${s} 날짜">
+      <div class="yg-goal-row">
+        <span class="yg-goal-lbl">목표</span>
+        <input class="yg-goal-inp" type="number" min="0" value="${g}" placeholder="—" onchange="setYDandGoal('${s}','goal',this.value)">
+        <span class="yg-goal-lbl">명</span>
+      </div>
+      ${ddHtml}
+    </div>`;
+  }).join('');
+
+  el.innerHTML=yukdaHtml;
+  renderStageGoalGrid();
+}
+
+function renderStageGoalGrid(){
+  const el=document.getElementById('stageGoalGrid');
+  if(!el) return;
+  const stageColors=['var(--c1)','var(--c2)','var(--c3)','var(--c4)','var(--c5)'];
+  el.innerHTML=STAGES.map((s,i)=>{
+    const cur=fruits.filter(f=>f.stage===s).length;
+    const goal=stageGoals[s]||'';
+    const pct=goal&&goal>0?Math.min(100,Math.round(cur/goal*100)):null;
+    return `<div class="yg-cell">
+      <div class="yg-name" style="color:${stageColors[i]}">${s}</div>
+      <div style="font-size:19px;font-weight:300;font-family:'DM Serif Display',serif;color:${stageColors[i]};line-height:1;margin:4px 0">${cur}</div>
+      <div class="yg-goal-row">
+        <span class="yg-goal-lbl">목표</span>
+        <input class="yg-goal-inp" type="number" min="0" value="${goal}" placeholder="—"
+          onchange="stageGoals['${s}']=this.value;renderStageGoalGrid();saveSettingsToFirebase()">
+        <span class="yg-goal-lbl">명</span>
+      </div>
+      ${pct!==null?`<div style="margin-top:5px;height:3px;background:var(--bg4);border-radius:2px"><div style="height:3px;width:${pct}%;background:${stageColors[i]};border-radius:2px"></div></div><div class="yg-dday dd-future" style="margin-top:2px">${pct}%</div>`:''}
+    </div>`;
+  }).join('');
+}
+function setYDandGoal(step,type,val){
+  if(type==='date'){yd[step]=val;renderYukda();}
+  else{yukdaGoals[step]=val;}
+  renderYukdaGoalGrid();
+  saveSettingsToFirebase();
+}
 
 /* ═══════════ 목표 ═══════════ */
+let _goalSaveT=null;
 function refreshGoal(){
   goalTarget=parseInt(document.getElementById('goalInp').value)||1;
   const ach=fruits.filter(f=>f.stage==='센터확답').length;
@@ -781,6 +1043,9 @@ function refreshGoal(){
   const pct=Math.min(100,Math.round(ach/goalTarget*100));
   document.getElementById('gBar').style.width=pct+'%';
   document.getElementById('gPct').textContent=pct+'%';
+  // 디바운스: 타이핑 멈춘 후 1초 뒤 저장
+  clearTimeout(_goalSaveT);
+  _goalSaveT=setTimeout(()=>saveSettingsToFirebase(), 1000);
 }
 
 /* ═══════════ 통계 ═══════════ */
@@ -823,7 +1088,10 @@ function buildDDs(){
     `<div class="cdd-opt ${flt.nat===(n==='전체'?'all':n)?'on':''}" onclick="picNat(event,'${n}')">${n}</div>`).join('');
   document.getElementById('ddStage').innerHTML=['전체',...STAGES].map(s=>
     `<div class="cdd-opt ${flt.stage===(s==='전체'?'all':s)?'on':''}" onclick="picStage(event,'${s}')">${s}</div>`).join('');
-  document.getElementById('ddMgr').innerHTML=['전체',...MANAGERS].map(m=>
+  // 인도자/관리자 필터: fruits에 실제 입력된 이름 기준
+  const guideNames=[...new Set(fruits.flatMap(f=>[f.guide,f.manager].filter(Boolean)))].sort();
+  const mgrNames=['전체',...guideNames];
+  document.getElementById('ddMgr').innerHTML=mgrNames.map(m=>
     `<div class="cdd-opt ${flt.mgr===(m==='전체'?'all':m)?'on':''}" onclick="picMgr(event,'${m}')">${m}</div>`).join('');
 }
 function openDD(e,id){
@@ -860,6 +1128,9 @@ function renderTable(){
   if(!list.length){tbody.innerHTML='<div style="text-align:center;padding:44px;color:var(--text3);font-size:13px;">조건에 맞는 열매가 없습니다.</div>';return;}
   tbody.innerHTML=list.map(f=>{
     const si=STAGES.indexOf(f.stage);
+    const stageOpts=STAGES.map(s=>`<option value="${s}" ${f.stage===s?'selected':''}>${s}</option>`).join('');
+    const assigneeOpts=['—',...managers.map(m=>m.name)].map(m=>
+      `<option value="${m}" ${(f.assignee||'—')===m?'selected':''}>${m}</option>`).join('');
     return `<div class="tr ${f.id===selId?'sel':''}" onclick="openDetail(${f.id})">
       <div><div class="rchk ${f.id===selId?'on':''}">✓</div></div>
       <div class="pc">
@@ -868,12 +1139,41 @@ function renderTable(){
       </div>
       <div class="ct">${f.age}세</div>
       <div class="ct">${f.nationality}</div>
-      <div><span class="sb ${SBC[si]}"><span class="sd"></span>${f.stage}</span></div>
-      <div class="ct" style="font-size:12px">${f.guide} / ${f.manager}</div>
+      <div onclick="event.stopPropagation()">
+        <select class="inline-stage-sel ${SBC[si]}" data-id="${f.id}"
+          onchange="changeStage(${f.id},this.value,this)">
+          ${stageOpts}
+        </select>
+      </div>
+      <div class="ct" style="font-size:12px">${f.guide||'—'} / ${f.manager||'—'}</div>
+      <div onclick="event.stopPropagation()">
+        <select onchange="changeAssignee(${f.id},this.value)"
+          style="border:1px solid var(--border);border-radius:6px;padding:3px 6px;font-size:11.5px;font-family:inherit;background:var(--bg2);color:var(--text2);outline:none;width:100%;max-width:110px;">
+          ${assigneeOpts}
+        </select>
+      </div>
       <div class="ctc">${f.lastContact}</div>
       <div><button class="abtn" onclick="event.stopPropagation();openDetail(${f.id})">상세</button></div>
     </div>`;
   }).join('');
+}
+function changeStage(id,val,sel){
+  const f=fruits.find(x=>x.id===id);
+  if(!f) return;
+  f.stage=val;
+  const si=STAGES.indexOf(val);
+  SBC.forEach(c=>sel.classList.remove(c));
+  sel.classList.add(SBC[si]);
+  refreshStats();renderTabs();buildDDs();
+  saveFruitsToFirebase();
+}
+function changeAssignee(id,val){
+  const f=fruits.find(x=>x.id===id);
+  if(!f) return;
+  f.assignee=val==='—'?'':val;
+  const m=managers.find(x=>x.name===val);
+  f.assigneeDept=m?m.dept:'';
+  saveFruitsToFirebase();
 }
 function doSearch(q){flt.search=q;renderTable();}
 
@@ -884,37 +1184,68 @@ function openDetail(id){
   if(!f) return;
   renderTable();
   const si=STAGES.indexOf(f.stage);
+
   const stps=STAGES.map((s,i)=>`
     <div class="stp-it ${i<si?'done':i===si?'cur':''}">
       <div class="stp-c">${i<si?'✓':i+1}</div>
       <div class="stp-nm">${s}</div>
     </div>`).join('');
 
-  const tgls=[
-    {t:'인성',f:[['성향/기질',f.tendency],['취미/관심사',f.hobby],['비전/목표',f.vision||'—']]},
-    {t:'신성',f:[['신앙 유형',f.faith],['신앙 연수',f.faithYears||'—'],['교회',f.church||'—'],['기도 제목',f.prayer||'—']]},
-    {t:'환경',f:[['거주 형태',f.residence],['직업/학업',f.job],['교통수단',f.transport],['거주 이유',f.reason],['거주 기간',f.duration]]},
-    {t:'싹',f:[['육적 싹',f.seedFlesh||'아직 없음'],['영적 싹',f.seedSpirit||'아직 없음']]},
-    {t:'우려사항',wrn:true,f:[['개인적 약점',f.weakness||'—'],['환경적 위협',f.threat||'—']]},
-  ];
-  const tHtml=tgls.map((t,i)=>`
-    <div class="tg">
-      <div class="tgh" onclick="tgl(${i})">
-        <span class="tgt">${t.t}</span>
-        <span class="tgc">${t.f.length}개 항목</span>
-        <span class="tga" id="ta${i}">▶</span>
+  /* ── 인라인 편집 섹션 생성기 ── */
+  function editSection(key, title, fields, warnStyle){
+    const fid=`es-${id}-${key}`;
+    const rows=fields.map(([lbl,field,type='text',opts=null])=>{
+      const val=(f[field]||'');
+      if(type==='textarea'){
+        return `<div class="edit-field full">
+          <div class="edit-lbl">${lbl}</div>
+          <textarea class="edit-ta" id="ef-${id}-${field}" rows="2">${val}</textarea>
+        </div>`;
+      }
+      return `<div class="edit-field">
+        <div class="edit-lbl">${lbl}</div>
+        <input class="edit-inp" id="ef-${id}-${field}" type="text" value="${val}" placeholder="—">
+      </div>`;
+    }).join('');
+    const saveJs=`saveEditSection(${id},'${key}',[${fields.map(([,f])=>`'${f}'`).join(',')}])`;
+    return `
+      <div class="edit-section-head" onclick="toggleEditSec('${fid}')">
+        <span class="edit-section-title">${title}</span>
+        <span class="edit-section-arr" id="esa-${fid}">▶</span>
       </div>
-      <div class="tgb" id="tb${i}">
-        <div class="ig">${t.f.map(([k,v])=>`
-          <div class="ii"><div class="ik">${k}</div>
-          <div class="iv ${v==='—'||v==='아직 없음'?'emp':t.wrn?'wrn':''}">${v}</div></div>`).join('')}
+      <div class="edit-section-body" id="esb-${fid}">
+        <div class="edit-section">
+          <div class="edit-grid">${rows}</div>
+          <div class="edit-save-btn"><button class="btn btn-blue" style="font-size:12px;padding:5px 12px" onclick="${saveJs}">저장</button></div>
         </div>
-      </div>
-    </div>`).join('');
+      </div>`;
+  }
 
-  // 만남 로그 렌더
+  const inseongSec=editSection('ins','인성',[
+    ['성향/기질','tendency'],['취미/관심사','hobby'],
+    ['비전/목표','vision','textarea']
+  ]);
+  const sinseongSec=editSection('sin','신성',[
+    ['신앙 유형','faith'],['신앙 연수','faithYears'],
+    ['교회','church'],['기도 제목','prayer','textarea']
+  ]);
+  const hwanSec=editSection('hwan','환경',[
+    ['거주 형태','residence'],['직업/학업','job'],
+    ['교통수단','transport'],['거주 이유','reason'],
+    ['거주 기간','duration']
+  ]);
+  const sakSec=editSection('sak','싹',[
+    ['육적 싹','seedFlesh','textarea'],
+    ['영적 싹','seedSpirit','textarea']
+  ]);
+  const worSec=editSection('wor','우려사항',[
+    ['개인적 약점','weakness','textarea'],
+    ['환경적 위협','threat','textarea']
+  ]);
+
+  /* ── 만남 기록 ── */
   const meetings=f.meetings||[];
-  const meetingsHtml=meetings.length ? meetings.map((m,mi)=>`
+  const meetingListHtml=meetings.length ? meetings.map((m,mi)=>`
     <div class="meeting-card">
       <div class="meeting-head" onclick="toggleMeeting(${id},${mi})">
         <span class="meeting-date-badge">${m.date}</span>
@@ -933,11 +1264,10 @@ function openDetail(id){
         </div>
       </div>
     </div>`).join('') :
-    `<div style="text-align:center;padding:20px;color:var(--text3);font-size:12.5px;">아직 만남 기록이 없습니다.</div>`;
+    `<div style="text-align:center;padding:16px 20px;color:var(--text3);font-size:12.5px;">아직 만남 기록이 없습니다.</div>`;
 
-  // 만남 입력 폼
   const meetFormHtml=`
-    <div class="meeting-form" id="meetingForm-${id}">
+    <div class="meeting-form" style="margin:0 20px 16px">
       <div class="mform-title">새 만남 기록</div>
       <div class="mform-grid">
         <div class="mform-field"><div class="mform-lbl">날짜 *</div><input class="mform-inp" type="date" id="mf-date-${id}"></div>
@@ -954,10 +1284,10 @@ function openDetail(id){
       </div>
     </div>`;
 
-  // 피드백 렌더
+  /* ── 피드백 ── */
   const feedbacks=f.feedbacks||[];
-  const fbHtml=feedbacks.length ? feedbacks.map(fb=>`
-    <div class="fb-card">
+  const fbListHtml=feedbacks.length ? feedbacks.map(fb=>`
+    <div class="fb-card" style="margin:0 20px 9px">
       <div class="fb-head">
         <div class="fb-type-dot ${fb.type}"></div>
         <span class="fb-head-author">${fb.author}</span>
@@ -969,11 +1299,10 @@ function openDetail(id){
         ${fb.coreQuestion?`<div class="fb-section"><div class="fb-sec-lbl">핵심 질문</div><div class="fb-sec-val" style="color:var(--blue)">${fb.coreQuestion}</div></div>`:''}
       </div>
     </div>`).join('') :
-    `<div style="text-align:center;padding:16px;color:var(--text3);font-size:12.5px;">아직 피드백이 없습니다.</div>`;
+    `<div style="text-align:center;padding:16px 20px;color:var(--text3);font-size:12.5px;">아직 피드백이 없습니다.</div>`;
 
-  // 피드백 입력 폼
   const fbFormHtml=`
-    <div class="meeting-form" style="margin-top:10px">
+    <div class="meeting-form" style="margin:0 20px 16px">
       <div class="mform-title">새 피드백</div>
       <div class="mform-grid">
         <div class="mform-field full"><div class="mform-lbl">내용</div>
@@ -996,35 +1325,55 @@ function openDetail(id){
       <div class="dav" style="background:${f.color.bg};color:${f.color.c}">${f.initials}</div>
       <div style="flex:1">
         <div class="dn">${f.name}</div>
-        <div class="dm">${f.nationality} · ${f.age}세 · ${f.type} · ${f.visa}</div>
+        <div class="dm">${f.nationality} · ${f.age||'—'}세 · ${f.type} · ${f.visa}</div>
         <div class="dm" style="margin-top:1px">거주: ${f.residence||'—'} · 사유: ${f.reason||'—'} · 기간: ${f.duration||'—'}</div>
       </div>
       <button class="dclose" onclick="closeDetail()">✕</button>
     </div>
+
     <div class="stp"><div class="stp-lbl">진행단계</div><div class="stp-row">${stps}</div></div>
+
     <div class="mgrow">
       <div class="mgit"><div class="mgrl">인도자</div>
-        <div class="mgnm">${f.guide}<span class="dept-tag">${f.guideDept||''}</span></div>
+        <div class="mgnm">${f.guide||'—'}<span class="dept-tag">${f.guideDept||''}</span></div>
       </div>
       <div class="mgit"><div class="mgrl">관리자</div>
-        <div class="mgnm">${f.manager}<span class="dept-tag">${f.managerDept||''}</span></div>
+        <div class="mgnm">${f.manager||'—'}<span class="dept-tag">${f.managerDept||''}</span></div>
       </div>
       <div class="mgit"><div class="mgrl">복음방 교사</div>
         <div class="mgnm">${f.teacher||'—'}${f.teacherDept?`<span class="dept-tag">${f.teacherDept}</span>`:''}</div>
       </div>
       <div class="mgit" style="margin-left:auto"><div class="mgrl">최근 접촉</div><div class="mgnm" style="color:var(--text3)">${f.lastContact}</div></div>
     </div>
-    <div class="tgsec">${tHtml}</div>
 
-    <div class="fbsec">
-      <div class="fbt" style="margin-bottom:12px">만남 기록 <span style="font-weight:400;color:var(--text3)">(${meetings.length}회)</span></div>
-      <div class="meeting-log">${meetingsHtml}</div>
+    <!-- 편집 가능 섹션들 -->
+    <div style="padding-bottom:4px;">
+      ${inseongSec}
+      ${sinseongSec}
+      ${hwanSec}
+      ${sakSec}
+      ${worSec}
+    </div>
+
+    <!-- 만남 기록 (토글) -->
+    <div class="log-toggle-head" onclick="toggleLogSec('meet-${id}')">
+      <span class="log-toggle-title">만남 기록</span>
+      <span class="log-toggle-badge">${meetings.length}회</span>
+      <span class="log-toggle-arr" id="lta-meet-${id}">▶</span>
+    </div>
+    <div class="log-toggle-body" id="ltb-meet-${id}">
+      <div style="padding:12px 0 4px">${meetingListHtml}</div>
       ${meetFormHtml}
     </div>
 
-    <div class="fbsec" style="border-top:1px solid var(--border)">
-      <div class="fbt" style="margin-bottom:12px">피드백 <span style="font-weight:400;color:var(--text3)">(${feedbacks.length}건)</span></div>
-      <div id="fb-list-${id}">${fbHtml}</div>
+    <!-- 피드백 (토글) -->
+    <div class="log-toggle-head" onclick="toggleLogSec('fb-${id}')">
+      <span class="log-toggle-title">피드백</span>
+      <span class="log-toggle-badge">${feedbacks.length}건</span>
+      <span class="log-toggle-arr" id="lta-fb-${id}">▶</span>
+    </div>
+    <div class="log-toggle-body" id="ltb-fb-${id}">
+      <div style="padding:12px 0 4px">${fbListHtml}</div>
       ${fbFormHtml}
     </div>`;
 
@@ -1032,12 +1381,41 @@ function openDetail(id){
   document.getElementById('dov').classList.add('open');
 }
 
-function toggleMeeting(fid,mi){
-  const b=document.getElementById(`mbody-${fid}-${mi}`);
-  const a=document.getElementById(`marr-${fid}-${mi}`);
+function toggleEditSec(fid){
+  const b=document.getElementById('esb-'+fid);
+  const a=document.getElementById('esa-'+fid);
   const o=b.classList.contains('open');
   b.classList.toggle('open',!o);
   a.classList.toggle('open',!o);
+}
+
+function toggleLogSec(key){
+  const b=document.getElementById('ltb-'+key);
+  const a=document.getElementById('lta-'+key);
+  const o=b.classList.contains('open');
+  b.classList.toggle('open',!o);
+  a.classList.toggle('open',!o);
+}
+
+function saveEditSection(id, key, fields){
+  const f=fruits.find(x=>x.id===id);
+  if(!f) return;
+  fields.forEach(field=>{
+    const el=document.getElementById(`ef-${id}-${field}`);
+    if(el) f[field]=el.value;
+  });
+  // 헤더 요약 업데이트
+  const dm=document.querySelector('.dm');
+  if(dm) dm.textContent=`${f.nationality} · ${f.age||'—'}세 · ${f.type} · ${f.visa}`;
+  // 저장 버튼 시각 피드백
+  const btn=document.querySelector(`#esb-es-${id}-${key} .btn-blue`);
+  if(btn){btn.textContent='저장됨';btn.style.color='var(--c2)';setTimeout(()=>{btn.textContent='저장';btn.style.color='';},1500);}
+  saveFruitsToFirebase();
+}
+function closeDetail(){
+  document.getElementById('dpan').classList.remove('open');
+  document.getElementById('dov').classList.remove('open');
+  selId=null;renderTable();
 }
 
 function saveMeeting(id){
@@ -1057,13 +1435,18 @@ function saveMeeting(id){
     nextGoal:document.getElementById(`mf-next-${id}`).value||'',
   });
   f.lastContact='오늘';
+  saveFruitsToFirebase();
   openDetail(id);
 }
-function tgl(i){
-  const b=document.getElementById('tb'+i),a=document.getElementById('ta'+i);
+
+function toggleMeeting(fid,mi){
+  const b=document.getElementById(`mbody-${fid}-${mi}`);
+  const a=document.getElementById(`marr-${fid}-${mi}`);
   const o=b.classList.contains('open');
-  b.classList.toggle('open',!o);a.classList.toggle('open',!o);
+  b.classList.toggle('open',!o);
+  a.classList.toggle('open',!o);
 }
+
 function saveFb(id){
   const text=document.getElementById(`fb-text-${id}`)?.value?.trim();
   if(!text){alert('내용을 입력해주세요.');return;}
@@ -1072,25 +1455,25 @@ function saveFb(id){
   const ds=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
   if(!f.feedbacks) f.feedbacks=[];
   f.feedbacks.unshift({
-    id:Date.now(),
-    type:'note',
-    author:'김선교',
-    date:ds,
-    text,
+    id:Date.now(),type:'note',author:'김선교',date:ds,text,
     nextMeetingGoal:document.getElementById(`fb-next-${id}`)?.value?.trim()||'',
     coreQuestion:document.getElementById(`fb-q-${id}`)?.value?.trim()||'',
   });
   f.lastContact='오늘';
+  saveFruitsToFirebase();
   openDetail(id);
-}
-function closeDetail(){
-  document.getElementById('dpan').classList.remove('open');
-  document.getElementById('dov').classList.remove('open');
-  selId=null;renderTable();
 }
 
 /* ═══════════ 모달 ═══════════ */
-function openModal(){document.getElementById('addMov').classList.add('open');}
+function openModal(){
+  // 담당자 드롭다운 최신 목록으로 채우기
+  const sel=document.getElementById('mf-assignee');
+  if(sel){
+    sel.innerHTML='<option value="">— 선택 안 함 —</option>'+
+      managers.map(m=>`<option value="${m.name}">${m.name}${m.dept?' ('+m.dept+')':''}</option>`).join('');
+  }
+  document.getElementById('addMov').classList.add('open');
+}
 function closeModal(){document.getElementById('addMov').classList.remove('open');}
 function addFruit(){
   const name=document.getElementById('mf-name')?.value?.trim();
@@ -1101,6 +1484,8 @@ function addFruit(){
   const managerDept=document.getElementById('mf-manager-dept')?.value||'';
   const teacher=document.getElementById('mf-teacher')?.value?.trim()||'';
   const teacherDept=document.getElementById('mf-teacher-dept')?.value||'';
+  const assigneeName=document.getElementById('mf-assignee')?.value||'';
+  const assigneeM=managers.find(m=>m.name===assigneeName);
   const colorIdx=fruits.length%ACOLORS.length;
   const initials=name.split(' ').filter(Boolean).map(w=>w[0].toUpperCase()).slice(0,2).join('');
   fruits.push({
@@ -1115,6 +1500,7 @@ function addFruit(){
     reason:document.getElementById('mf-reason')?.value||'',
     duration:document.getElementById('mf-duration')?.value||'',
     guide,guideDept,manager,managerDept,teacher,teacherDept,
+    assignee:assigneeName,assigneeDept:assigneeM?assigneeM.dept:'',
     lastContact:'오늘',
     color:ACOLORS[colorIdx],
     tendency:'',hobby:'',vision:'',faith:'',faithYears:'',church:'',prayer:'',
@@ -1128,6 +1514,7 @@ function addFruit(){
     }]
   });
   refreshStats();renderTabs();buildDDs();renderTable();
+  saveFruitsToFirebase();
   closeModal();
 }
 
@@ -1152,6 +1539,9 @@ function doSave(){
     savedAt: now.toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric'}),
     goal: goalTarget,
     yukdaDates: JSON.parse(JSON.stringify(yd)),
+    yukdaGoals: JSON.parse(JSON.stringify(yukdaGoals)),
+    stageGoals: JSON.parse(JSON.stringify(stageGoals)),
+    recruitDates: JSON.parse(JSON.stringify(recruitDates)),
     fruits: JSON.parse(JSON.stringify(fruits)),
     stageCounts: Object.fromEntries(STAGES.map(s=>[s, fruits.filter(f=>f.stage===s).length])),
     total: fruits.length,
@@ -1166,7 +1556,8 @@ function doSave(){
     savedSemesters.unshift(snapshot);
   }
   curSemName=name;
-  saveToStorage();
+  saveToStorage();        // 개강 이력 저장
+  saveSettingsToFirebase(); // curSemName 포함 설정 저장
   closeSaveModal();
   renderYukda();
   updateSemBadge();
@@ -1187,22 +1578,27 @@ function deleteSemester(id){
 
 /* ═══════════ 개강 관리 페이지 렌더 ═══════════ */
 function renderSemPage(){
-  // 현재 진행 중 카드
   const ach=fruits.filter(f=>f.stage==='센터확답').length;
   const tot=fruits.length;
-  const pct=tot>0?Math.round(ach/goalTarget*100):0;
-  const today=new Date(); today.setHours(0,0,0,0);
+  const pct=goalTarget>0?Math.min(100,Math.round(ach/goalTarget*100)):0;
 
-  document.getElementById('cur-sem-title-label').textContent=curSemName?`— ${curSemName}`:'(미저장)';
+  document.getElementById('cur-sem-title-label').textContent=curSemName||'이름 없는 개강';
 
+  // 섭외기간 렌더
+  renderRecruitDuration();
+
+  // 육따 목표 그리드 렌더
+  renderYukdaGoalGrid();
+
+  // 현재 단계 통계 카드
   const statsHtml=`
     <div class="csc-top">
       <span class="csc-badge">현재 진행</span>
       <div class="csc-name">${curSemName||'이름 없는 개강'}</div>
       <div style="display:flex;align-items:center;gap:8px;margin-left:auto">
-        <span style="font-size:12px;color:var(--text3)">목표 ${goalTarget}명 중</span>
+        <span style="font-size:12px;color:var(--text3)">전체 목표 ${goalTarget}명 중</span>
         <span style="font-size:13px;font-weight:600;color:var(--pink)">${ach}명 달성</span>
-        <div class="goal-bar-bg" style="width:80px"><div class="goal-bar" style="width:${Math.min(100,pct)}%"></div></div>
+        <div class="goal-bar-bg" style="width:80px"><div class="goal-bar" style="width:${pct}%"></div></div>
         <span style="font-size:11.5px;color:var(--text3)">${pct}%</span>
       </div>
     </div>
@@ -1211,34 +1607,14 @@ function renderSemPage(){
       ${STAGES.map((s,i)=>{
         const n=fruits.filter(f=>f.stage===s).length;
         const p=tot>0?Math.round(n/tot*100):0;
-        return `<div class="css-item"><div class="css-lbl">${s}</div><div class="css-num" style="color:var(--c${i+1})">${n}</div><div class="css-pct">${p}%</div></div>`;
-      }).join('')}
-    </div>
-    <div class="csc-yt">
-      ${YUKDA.map(s=>{
-        const v=yd[s]||'';
-        let ddHtml='';
-        if(v){
-          const d=new Date(v); d.setHours(0,0,0,0);
-          const df=Math.round((d-today)/86400000);
-          let cls,tx;
-          if(df<0){cls='dd-past';tx='D+'+Math.abs(df);}
-          else if(df===0){cls='dd-urgent';tx='D-Day';}
-          else if(df<=7){cls='dd-urgent';tx='D-'+df;}
-          else if(df<=14){cls='dd-soon';tx='D-'+df;}
-          else{cls='dd-future';tx='D-'+df;}
-          ddHtml=`<div class="cyt-dd ${cls}">${tx}</div>`;
-        }
-        return `<div class="csc-yt-step ${v?'has-d':''}">
-          <div class="cyt-name">${s}</div>
-          <div class="cyt-val ${v?'':'empty'}">${v||'미정'}</div>
-          ${ddHtml}
-        </div>`;
+        const goal=yukdaGoals[s]||'';
+        const goalTxt=goal?` / 목표 ${goal}명`:'';
+        return `<div class="css-item"><div class="css-lbl">${s}</div><div class="css-num" style="color:var(--c${i+1})">${n}</div><div class="css-pct">${p}%${goalTxt}</div></div>`;
       }).join('')}
     </div>`;
   document.getElementById('curSemCard').innerHTML=statsHtml;
 
-  // 저장된 목록
+  // 저장 이력
   const hist=savedSemesters;
   document.getElementById('sem-hist-count').textContent=hist.length?`${hist.length}개 저장됨`:'없음';
   updateSemBadge();
@@ -1253,15 +1629,16 @@ function renderSemPage(){
   } else {
     document.getElementById('semList').innerHTML=hist.map(sem=>{
       const ytChips=YUKDA.map(s=>{
-        const v=sem.yukdaDates[s]||'';
-        return `<span class="sc-yt-chip ${v?'set':''}">${s}${v?' '+v.slice(5):''}${!v?' 미정':''}</span>`;
+        const v=sem.yukdaDates?.[s]||'';
+        const g=sem.yukdaGoals?.[s]||'';
+        return `<span class="sc-yt-chip ${v?'set':''}">${s}${v?' '+v.slice(5):''}${g?' (목표 '+g+'명)':''}${!v?' 미정':''}</span>`;
       }).join('');
-      const stageInfo=STAGES.map((s,i)=>`<span class="sc-ms"><strong>${sem.stageCounts[s]||0}</strong> ${s}</span>`).join('');
-      const achPct=sem.goal>0?Math.round(sem.achieved/sem.goal*100):0;
+      const stageInfo=STAGES.map((s,i)=>`<span class="sc-ms"><strong>${sem.stageCounts?.[s]||0}</strong> ${s}</span>`).join('');
+      const achPct=sem.goal>0?Math.round((sem.achieved||0)/sem.goal*100):0;
       return `<div class="sem-card" onclick="loadSemester(${sem.id})">
         <div class="sc-row1">
           <div class="sc-name">${sem.name}</div>
-          <span style="font-size:11.5px;color:var(--text2)">열매 ${sem.total}명 · 목표 ${sem.goal}명 · 달성 ${sem.achieved}명 (${achPct}%)</span>
+          <span style="font-size:11.5px;color:var(--text2)">열매 ${sem.total}명 · 목표 ${sem.goal}명 · 달성 ${sem.achieved||0}명 (${achPct}%)</span>
           <span class="sc-saved">저장일: ${sem.savedAt}</span>
           <button class="sc-del" onclick="event.stopPropagation();deleteSemester(${sem.id})">삭제</button>
         </div>
@@ -1271,7 +1648,6 @@ function renderSemPage(){
     }).join('');
   }
 
-  // 비교 셀렉트 업데이트
   const opts=hist.map(s=>`<option value="${s.id}">${s.name}</option>`).join('');
   document.getElementById('cmpSel1').innerHTML='<option value="">개강 선택</option>'+opts;
   document.getElementById('cmpSel2').innerHTML='<option value="">개강 선택</option>'+opts;
@@ -1285,6 +1661,8 @@ function loadSemester(id){
   if(!confirm(`"${sem.name}" 개강 데이터를 현재로 불러올까요? 현재 데이터는 먼저 저장해주세요.`)) return;
   fruits=JSON.parse(JSON.stringify(sem.fruits));
   yd=JSON.parse(JSON.stringify(sem.yukdaDates));
+  if(sem.stageGoals) stageGoals=JSON.parse(JSON.stringify(sem.stageGoals));
+  if(sem.recruitDates) recruitDates=JSON.parse(JSON.stringify(sem.recruitDates));
   goalTarget=sem.goal;
   curSemName=sem.name;
   document.getElementById('goalInp').value=goalTarget;
@@ -1293,6 +1671,8 @@ function loadSemester(id){
   refreshStats();
   buildDDs();
   renderTable();
+  saveFruitsToFirebase();
+  saveSettingsToFirebase();
   gotoView('fruits', document.getElementById('nav-sem').previousElementSibling||document.querySelector('.s-item'));
   // 열매목록 nav 활성화
   document.querySelectorAll('.s-item').forEach((it,i)=>{if(i===0) it.classList.add('active'); else it.classList.remove('active');});
@@ -1336,12 +1716,12 @@ function renderCompare(){
 
 /* ═══════════ 로그인 ═══════════ */
 const PORTAL_PW='1428113';
-function doLogin(){
+async function doLogin(){
   const pw=document.getElementById('pwInput').value;
   if(pw===PORTAL_PW){
     document.getElementById('loginScreen').style.display='none';
     document.getElementById('mainApp').style.display='flex';
-    initPortal();
+    await initPortal();
   } else {
     const err=document.getElementById('loginErr');
     err.textContent='비밀번호가 올바르지 않습니다.';
@@ -1351,16 +1731,315 @@ function doLogin(){
   }
 }
 
+/* ═══════════ 담당자 관리 ═══════════ */
+let managers=[];
+const MGR_COLORS=[
+  {bg:'rgba(65,112,184,.14)',c:'#4170b8'},
+  {bg:'rgba(46,140,112,.14)',c:'#2e8c70'},
+  {bg:'rgba(112,64,192,.14)',c:'#7040c0'},
+  {bg:'rgba(192,64,96,.14)',c:'#c04060'},
+  {bg:'rgba(138,96,16,.14)',c:'#8a6010'},
+  {bg:'rgba(58,111,204,.14)',c:'#3a6fcc'},
+];
+const DEPTS=['교역자','자문회','장년회','부녀회','청년회'];
+const DEPT_COLORS={
+  '교역자':'var(--pink)','자문회':'var(--c1)','장년회':'var(--c2)','부녀회':'var(--c4)','청년회':'var(--c3)'
+};
+
+function addManager(){
+  const name=document.getElementById('mgr-new-name').value.trim();
+  if(!name){alert('이름을 입력해주세요.');return;}
+  const dept=document.getElementById('mgr-new-dept').value;
+  // 중복 체크
+  if(managers.find(m=>m.name===name&&m.dept===dept)){
+    alert('이미 등록된 담당자입니다.');return;
+  }
+  const col=MGR_COLORS[managers.length%MGR_COLORS.length];
+  managers.push({id:Date.now(),name,dept,color:col});
+  document.getElementById('mgr-new-name').value='';
+  saveManagersToFirebase();
+  renderManagerPage();
+  buildDDs();
+}
+
+function deleteManager(id){
+  if(!confirm('담당자를 삭제할까요?')) return;
+  managers=managers.filter(m=>m.id!==id);
+  saveManagersToFirebase();
+  renderManagerPage();
+}
+
+function toggleMgrCard(id){
+  const b=document.getElementById('mgb-'+id);
+  const a=document.getElementById('mga-'+id);
+  const o=b.classList.contains('open');
+  b.classList.toggle('open',!o);
+  a.classList.toggle('open',!o);
+}
+
+function renderManagerPage(){
+  const list=document.getElementById('mgrList');
+  if(!list) return;
+
+  if(!managers.length){
+    list.innerHTML=`<div style="text-align:center;padding:48px;color:var(--text3);font-size:13px;">
+      아직 등록된 담당자가 없습니다.<br><span style="font-size:12px;margin-top:6px;display:block">위에서 담당자를 추가하세요.</span>
+    </div>`;
+    return;
+  }
+
+  const SBC2=['sb1','sb2','sb3','sb4','sb5'];
+
+  // 부서별로 그룹핑
+  const grouped={};
+  DEPTS.forEach(d=>{ grouped[d]=managers.filter(m=>m.dept===d); });
+  // 부서 미분류 담당자도 포함
+  const otherDepts=[...new Set(managers.map(m=>m.dept))].filter(d=>!DEPTS.includes(d));
+  otherDepts.forEach(d=>{ grouped[d]=managers.filter(m=>m.dept===d); });
+
+  const allDepts=[...DEPTS,...otherDepts].filter(d=>grouped[d]?.length>0);
+
+  list.innerHTML=allDepts.map(dept=>{
+    const deptMgrs=grouped[dept];
+    const deptColor=DEPT_COLORS[dept]||'var(--text2)';
+    const deptTotal=deptMgrs.reduce((sum,m)=>{
+      const cnt=fruits.filter(f=>f.assignee===m.name&&f.assigneeDept===m.dept).length;
+      return sum+cnt;
+    },0);
+
+    const mgrCards=deptMgrs.map(m=>{
+      const myFruits=fruits.filter(f=>f.assignee===m.name&&f.assigneeDept===m.dept);
+      const initials=m.name.slice(0,2);
+      const fruitRows=myFruits.length
+        ? myFruits.map(f=>{
+            const si=STAGES.indexOf(f.stage);
+            return `<div class="mgr-fruit-row">
+              <div class="mgr-fruit-av" style="background:${f.color.bg};color:${f.color.c}">${f.initials}</div>
+              <span class="mgr-fruit-name">${f.name}</span>
+              <span class="mgr-fruit-nat" style="font-size:11px;color:var(--text3)">${f.nationality}</span>
+              <span class="mgr-fruit-stage"><span class="sb ${SBC2[si]||'sb1'}" style="font-size:10.5px;padding:2px 7px"><span class="sd"></span>${f.stage}</span></span>
+              <span style="font-size:11px;color:var(--text3)">${f.guide?'인도자: '+f.guide:''}</span>
+              <button class="mgr-fruit-link" onclick="openDetailFromMgr(${f.id})">열기</button>
+            </div>`;
+          }).join('')
+        : `<div class="mgr-empty-fruits">담당하는 열매가 없습니다.</div>`;
+
+      const roleBadge='';
+      return `<div class="mgr-card">
+        <div class="mgr-card-head" onclick="toggleMgrCard(${m.id})">
+          <div class="mgr-avatar" style="background:${m.color.bg};color:${m.color.c}">${initials}</div>
+          <span class="mgr-card-name">${m.name}</span>
+          ${roleBadge}
+          <span class="mgr-card-cnt" style="margin-left:auto">${myFruits.length}명 담당</span>
+          <span class="mgr-card-arr" id="mga-${m.id}">▶</span>
+          <button class="mgr-card-del" onclick="event.stopPropagation();deleteManager(${m.id})">삭제</button>
+        </div>
+        <div class="mgr-card-body" id="mgb-${m.id}">${fruitRows}</div>
+      </div>`;
+    }).join('');
+
+    return `<div style="margin-bottom:24px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;padding-bottom:8px;border-bottom:2px solid ${deptColor}20">
+        <span style="font-size:13px;font-weight:600;color:${deptColor}">${dept}</span>
+        <span style="font-size:11.5px;color:var(--text3)">${deptMgrs.length}명 · 열매 ${deptTotal}명 담당</span>
+      </div>
+      ${mgrCards}
+    </div>`;
+  }).join('');
+}
+
+function openDetailFromMgr(id){
+  gotoView('fruits',document.getElementById('nav-fruits'));
+  setTimeout(()=>openDetail(id),100);
+}
+
+/* ═══════════ 페이지 다운로드 ═══════════ */
+function downloadPortal(){
+  const html=document.documentElement.outerHTML;
+  const blob=new Blob([html],{type:'text/html;charset=utf-8'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  const d=new Date();
+  a.download=`mission-portal-${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}.html`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+/* ═══════════ Firebase 저장 함수들 ═══════════ */
+
+// 동기화 상태 표시
+function showSyncStatus(msg, color='var(--c2)'){
+  let el=document.getElementById('syncStatus');
+  if(!el){
+    el=document.createElement('div');
+    el.id='syncStatus';
+    el.style.cssText='position:fixed;bottom:16px;right:16px;padding:7px 14px;border-radius:8px;font-size:12px;font-weight:500;z-index:9999;transition:opacity .4s;pointer-events:none;';
+    document.body.appendChild(el);
+  }
+  el.textContent=msg;
+  el.style.background=color==='var(--c2)'?'rgba(46,140,112,.12)':'rgba(192,64,96,.1)';
+  el.style.color=color;
+  el.style.border=`1px solid ${color==='var(--c2)'?'rgba(46,140,112,.25)':'rgba(192,64,96,.25)'}`;
+  el.style.opacity='1';
+  clearTimeout(el._t);
+  el._t=setTimeout(()=>{el.style.opacity='0';},2000);
+}
+
+// 열매 전체 저장
+async function saveFruitsToFirebase(){
+  try{
+    await setDoc(doc(db,'portal','fruits'), {list: fruits});
+    showSyncStatus('✓ 저장됨');
+  }catch(e){ showSyncStatus('저장 실패 — 연결 확인', 'var(--c5)'); console.error(e); }
+}
+
+// 담당자 전체 저장
+async function saveManagersToFirebase(){
+  try{
+    await setDoc(doc(db,'portal','managers'), {list: managers});
+    showSyncStatus('✓ 저장됨');
+  }catch(e){ showSyncStatus('저장 실패', 'var(--c5)'); console.error(e); }
+}
+
+// 설정(육따 날짜, 목표, 현재 개강명 등) 저장
+async function saveSettingsToFirebase(){
+  try{
+    await setDoc(doc(db,'portal','settings'), {
+      yd, yukdaGoals, stageGoals, goalTarget, curSemName, recruitDates
+    });
+  }catch(e){ console.error(e); }
+}
+
+// 개강 이력 전체 저장
+async function saveSemestersToFirebase(){
+  try{
+    await setDoc(doc(db,'portal','semesters'), {list: savedSemesters});
+    showSyncStatus('✓ 개강 저장됨');
+  }catch(e){ showSyncStatus('저장 실패', 'var(--c5)'); console.error(e); }
+}
+
+// localStorage 호환용 래퍼 (기존 코드가 호출하는 함수명 유지)
+function saveToStorage(){ saveSemestersToFirebase(); }
+
+/* ═══════════ Firebase 실시간 리스너 ═══════════ */
+function setupRealtimeListeners(){
+  // 열매 목록 실시간 동기화
+  onSnapshot(doc(db,'portal','fruits'), snap=>{
+    if(snap.exists()){
+      const data=snap.data().list||[];
+      // 색상 객체 복원 (Firestore는 함수 저장 안 됨)
+      fruits=data.map((f,i)=>({
+        ...f,
+        color: f.color||ACOLORS[i%ACOLORS.length]
+      }));
+      refreshStats(); renderTabs(); buildDDs(); renderTable();
+      if(document.getElementById('view-manager').classList.contains('active')) renderManagerPage();
+    }
+  });
+
+  // 담당자 실시간 동기화
+  onSnapshot(doc(db,'portal','managers'), snap=>{
+    if(snap.exists()){
+      const data=snap.data().list||[];
+      managers=data.map((m,i)=>({
+        ...m,
+        color: m.color||MGR_COLORS[i%MGR_COLORS.length]
+      }));
+      if(document.getElementById('view-manager').classList.contains('active')) renderManagerPage();
+    }
+  });
+
+  // 개강 이력 실시간 동기화
+  onSnapshot(doc(db,'portal','semesters'), snap=>{
+    if(snap.exists()){
+      savedSemesters=snap.data().list||[];
+      updateSemBadge();
+      if(document.getElementById('view-semester').classList.contains('active')) renderSemPage();
+    }
+  });
+
+  // 설정 실시간 동기화
+  onSnapshot(doc(db,'portal','settings'), snap=>{
+    if(snap.exists()){
+      const s=snap.data();
+      if(s.yd) yd={...s.yd};
+      if(s.yukdaGoals) yukdaGoals={...s.yukdaGoals};
+      if(s.stageGoals) stageGoals={...s.stageGoals};
+      if(s.goalTarget!=null){ goalTarget=s.goalTarget; const gi=document.getElementById('goalInp'); if(gi) gi.value=goalTarget; }
+      if(s.curSemName!=null) curSemName=s.curSemName;
+      if(s.recruitDates) recruitDates={...s.recruitDates};
+      renderYukda();
+      if(document.getElementById('view-semester').classList.contains('active')){
+        renderYukdaGoalGrid(); renderRecruitDuration();
+      }
+    }
+  });
+}
+
 /* ═══════════ 초기화 ═══════════ */
-function initPortal(){
-  loadFromStorage();
+async function initPortal(){
+  // 로딩 표시
+  showSyncStatus('Firebase 연결 중...', 'var(--blue)');
+
+  // 초기 데이터 불러오기
+  try{
+    const [fruitsSnap, managersSnap, semSnap, settingsSnap] = await Promise.all([
+      getDoc(doc(db,'portal','fruits')),
+      getDoc(doc(db,'portal','managers')),
+      getDoc(doc(db,'portal','semesters')),
+      getDoc(doc(db,'portal','settings')),
+    ]);
+
+    if(fruitsSnap.exists()){
+      fruits=(fruitsSnap.data().list||[]).map((f,i)=>({...f, color:f.color||ACOLORS[i%ACOLORS.length]}));
+    }
+    if(managersSnap.exists()){
+      managers=(managersSnap.data().list||[]).map((m,i)=>({...m, color:m.color||MGR_COLORS[i%MGR_COLORS.length]}));
+    }
+    if(semSnap.exists()){
+      savedSemesters=semSnap.data().list||[];
+    }
+    if(settingsSnap.exists()){
+      const s=settingsSnap.data();
+      if(s.yd) yd={...s.yd};
+      if(s.yukdaGoals) yukdaGoals={...s.yukdaGoals};
+      if(s.stageGoals) stageGoals={...s.stageGoals};
+      if(s.goalTarget!=null){ goalTarget=s.goalTarget; }
+      if(s.curSemName!=null) curSemName=s.curSemName;
+      if(s.recruitDates) recruitDates={...s.recruitDates};
+    }
+    showSyncStatus('✓ 연결됨');
+  }catch(e){
+    showSyncStatus('오프라인 — 연결을 확인해주세요', 'var(--c5)');
+    console.error('Firebase 초기 로드 실패:', e);
+  }
+
   updateSemBadge();
   renderYukda();
   renderTabs();
   refreshStats();
   buildDDs();
   renderTable();
+
+  // 실시간 리스너 시작
+  setupRealtimeListeners();
 }
+
+/* ═══════════ 전역 함수 노출 (type=module 필수) ═══════════ */
+Object.assign(window,{
+  gotoView, doLogin, openModal, closeModal, addFruit,
+  openSaveModal, closeSaveModal, doSave,
+  openDetail, closeDetail, openDetailFromMgr,
+  saveEditSection, toggleEditSec, toggleLogSec,
+  saveMeeting, toggleMeeting, saveFb,
+  setStage, setYD, setYDandGoal, setRecruitDate,
+  refreshGoal, doSearch, openDD,
+  picNat, picStage, picMgr, closeAllDD,
+  changeStage, changeAssignee,
+  addManager, deleteManager, toggleMgrCard,
+  toggleCurSem, renderCompare, loadSemester, deleteSemester,
+  downloadPortal,
+});
 </script>
 </body>
 </html>
